@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="5dip" >
+
+    <TextView
+        android:id="@+id/fecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:text="Fecha"/>
+
+    <TextView
+        android:id="@+id/entrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fecha"
+        android:layout_marginTop="5dip"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Entrada"/>
+
+    <TextView
+        android:id="@+id/fechaEntrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/entrada"
+        android:layout_alignBottom="@+id/entrada"
+        android:textColor="#343434"
+        android:text="Entrada2"
+        android:paddingLeft="10dip"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/observaciones"
+        android:layout_toEndOf="@+id/observaciones" />
+
+    <TextView
+        android:id="@+id/salida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/entrada"
+        android:layout_marginTop="5dip"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Salida"/>
+
+    <TextView
+        android:id="@+id/observaciones"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/salida"
+        android:layout_marginTop="5dip"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:text="Observaciones"/>
+
+    <TextView
+        android:id="@+id/observacionesDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/observaciones"
+        android:layout_alignBottom="@+id/observaciones"
+        android:textColor="#343434"
+        android:text="obsdesc2"
+        android:paddingLeft="10dip"
+        android:textSize="12sp"
+        android:layout_toRightOf="@+id/observaciones"
+        android:layout_toEndOf="@+id/observaciones"/>
+
+    <TextView
+        android:id="@+id/fechaSalida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:text="Salida2"
+        android:paddingLeft="10dip"
+        android:textSize="12sp"
+        android:layout_above="@+id/observaciones"
+        android:layout_toRightOf="@+id/observaciones"
+        android:layout_toEndOf="@+id/observaciones" />
+</RelativeLayout>

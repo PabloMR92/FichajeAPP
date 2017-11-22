@@ -101,10 +101,10 @@ public class LoginActivity extends AppCompatActivity {
     void Loguear() {
         LoginApiCall loginApi = new LoginApiCall();
         Domain domain = (Domain) DomainSpinner.getSelectedItem();
-        String domainDescription = "";
+        String domainPrepend = "";
         if(domain != null)
-            domainDescription = domain.getDescripcion() + "@";
-        loginApi.LogIn(new UserLogin(domainDescription + username.getText().toString(), password.getText().toString()), this,
+            domainPrepend = domain.getDomain() + "@";
+        loginApi.LogIn(new UserLogin(domainPrepend + username.getText().toString(), password.getText().toString()), this,
                 new LoginErrorInterface() {
 
                     @Override

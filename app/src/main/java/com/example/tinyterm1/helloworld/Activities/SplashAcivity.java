@@ -1,5 +1,8 @@
 package com.example.tinyterm1.helloworld.Activities;
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +15,8 @@ public class SplashAcivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCenter.start(getApplication(), "9ee99dd5-1ab0-4469-b41d-1251c0d94de6",
+                Analytics.class, Crashes.class);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_acivity);
 

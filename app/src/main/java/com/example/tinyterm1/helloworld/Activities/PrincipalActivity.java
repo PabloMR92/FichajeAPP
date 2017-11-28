@@ -1,5 +1,6 @@
 package com.example.tinyterm1.helloworld.Activities;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,11 +36,13 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
     @BindView(R.id.txtproximaFichadaDesc)
     TextView proximaFichada;
     @BindView(R.id.txtultimaFichadaExitosaDesc)
@@ -48,6 +52,7 @@ public class PrincipalActivity extends AppCompatActivity {
     PendingIntent pendingIntent;
     private Context ctx;
     private boolean esNuevo;
+    private static final String TAG = "PrincipalActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +88,8 @@ public class PrincipalActivity extends AppCompatActivity {
         Date date = calendar.getTime();
         proximaFichada.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
         ultimaFichadaExitosa.setText(GeoLocationPostLastSuccess.getLastSuccess(ctx));
+        if(!EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION))
+            EasyPermissions.requestPermissions(this, "La aplicación requiere el gps activado para funcionar correctamente.", 1159, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
     private String GetProximaFichada(String fecha){
@@ -180,4 +187,16 @@ public class PrincipalActivity extends AppCompatActivity {
         return calendar;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, PrincipalActivity.this);
+    }
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+    }
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.d(TAG, "Permission has been denied");
+    }
 }

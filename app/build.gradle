@@ -35,4 +35,5 @@ dependencies {
     def appCenterSdkVersion = '1.0.0'
     compile "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     compile "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    compile 'pub.devrel:easypermissions:1.0.1'
 }

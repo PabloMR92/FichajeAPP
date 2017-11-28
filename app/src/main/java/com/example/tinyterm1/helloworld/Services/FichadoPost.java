@@ -27,7 +27,7 @@ public class FichadoPost {
         if(gps.canGetLocation()) {
             actualLocation.setCoordenadaX(gps.getLatitude());
             actualLocation.setCoordenadaY(gps.getLongitude());
-            actualLocation.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US).format(new Date()));
+            actualLocation.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
             geoLocationApiCall.postCurrentLocation(actualLocation, context, successInterface, errorInterface);
             gps.stopUsingGPS();

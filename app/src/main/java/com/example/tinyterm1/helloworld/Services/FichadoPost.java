@@ -11,7 +11,6 @@ import com.example.tinyterm1.helloworld.Models.GeoLocation;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by TinyTerm1 on 08/01/2017.

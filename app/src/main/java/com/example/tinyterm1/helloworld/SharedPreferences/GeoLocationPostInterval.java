@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class GeoLocationPostInterval {
     private SharedPreferences sharedPreferences;
     private static String PREF_NAME = "GeoLocationPostInterval";
+    private static String defaultValue = "1";
 
     public GeoLocationPostInterval() {
         // Blank
@@ -16,7 +17,8 @@ public class GeoLocationPostInterval {
     }
 
     public static String getInterval(Context context) {
-        return getPrefs(context).getString("interval", null);
+        String value = getPrefs(context).getString("interval", null);
+        return value == null ? defaultValue : value;
     }
 
     public static void setInterval(Context context, String input) {

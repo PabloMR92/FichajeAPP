@@ -2,8 +2,10 @@ package com.example.tinyterm1.helloworld.Services;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.tinyterm1.helloworld.Activities.PrincipalActivity;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationApiCall;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
@@ -30,6 +32,9 @@ public class FichadoPost {
 
             geoLocationApiCall.postCurrentLocation(actualLocation, context, successInterface, errorInterface);
             gps.stopUsingGPS();
+        }else{
+            Toast.makeText(context,"Habilite el GPS para el correcto funcionamiento de la aplicación.",Toast.LENGTH_LONG).show();
         }
+
     }
 }

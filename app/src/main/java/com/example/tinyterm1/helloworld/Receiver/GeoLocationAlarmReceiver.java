@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.WakefulBroadcastReceiver;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ import static android.content.Context.ALARM_SERVICE;
  * Created by TinyTerm1 on 03/01/2017.
  */
 
-public class GeoLocationAlarmReceiver extends BroadcastReceiver {
+public class GeoLocationAlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, Intent intent) {

@@ -27,11 +27,18 @@
             android:layout_height="wrap_content"
             android:src="@drawable/logo" />
 
-        <Spinner
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/dni"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/domainSpinner"
-            android:layout_weight="1"/>
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="Dni"
+            android:inputType="number"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="@color/input_login"
+            android:textColorHint="@color/input_login_hint" />
 
         <EditText
             android:id="@+id/usuario"

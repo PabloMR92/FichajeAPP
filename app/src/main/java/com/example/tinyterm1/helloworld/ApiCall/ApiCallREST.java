@@ -30,6 +30,9 @@ public interface ApiCallREST {
     @GET("api/ListadoTimeSheet")
     Call<ArrayList<ListadoRequest>> reporte(@QueryMap Map<String, String> params);
 
+    @GET("api/UUID")
+    Call<Boolean> uuid(@QueryMap Map<String, String> params);
+
     @POST("api/GeoLocation")
     Call<FichadoResponse> fichar(@Body GeoLocation actualLocation, @Query("UUID") String UUID);
 

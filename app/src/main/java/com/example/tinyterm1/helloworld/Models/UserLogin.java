@@ -8,11 +8,13 @@ package com.example.tinyterm1.helloworld.Models;
 public class UserLogin {
     private String login;
     private String password;
+    private String dni;
 
-    public UserLogin(String login, String password)
+    public UserLogin(String login, String password, String dni)
     {
         this.login = login;
         this.password = password;
+        this.dni = dni;
     }
 
     public UserLogin(){}
@@ -31,5 +33,13 @@ public class UserLogin {
 
     public void setLogin(String userName) {
         this.login = login;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 }

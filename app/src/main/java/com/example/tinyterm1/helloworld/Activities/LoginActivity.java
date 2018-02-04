@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     @BindView(R.id.password)
     EditText password;
+    @BindView(R.id.dni)
+    EditText dni;
     @BindView(R.id.btnLogin)
     Button loginButton;
-    @BindView(R.id.domainSpinner)
-    Spinner DomainSpinner;
 
     Context ctx;
 
@@ -61,20 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        GeoLocationPostInterval.setInterval(this, "5");
-
         //DireccionSV.setDireccion(this, "http://192.168.1.8:3000");
-
-        GetDomainsApiCall getTiposHorarioApiCall = new GetDomainsApiCall();
-
-        getTiposHorarioApiCall.getDomains(this,
-                new DomainSuccessInterface() {
-                    @Override
-                    public void GetDomains(ArrayList<Domain> domains) {
-                        ArrayAdapter<Domain> adapter = new ArrayAdapter<Domain>(ctx, android.R.layout.simple_spinner_dropdown_item, domains);
-                        DomainSpinner.setAdapter(adapter);
-                    }
-                });
     }
 
     @Override
@@ -86,25 +73,10 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent inicioActivityIntent;
-        switch(item.getItemId()) {
-        case R.id.config:
-            inicioActivityIntent = new Intent(this, ConfiguracionActivity.class);
-            this.startActivity(inicioActivityIntent);
-            return(true);
-    }
-        return(super.onOptionsItemSelected(item));
-    }
-
     void Loguear() {
         LoginApiCall loginApi = new LoginApiCall();
-        Domain domain = (Domain) DomainSpinner.getSelectedItem();
         String domainPrepend = "";
-        if(domain != null)
-            domainPrepend = domain.getDomain() + "@";
-        loginApi.LogIn(new UserLogin(domainPrepend + username.getText().toString(), password.getText().toString()), this,
+        loginApi.LogIn(new UserLogin(username.getText().toString(), password.getText().toString(), dni.getText().toString()), this,
                 new LoginErrorInterface() {
 
                     @Override

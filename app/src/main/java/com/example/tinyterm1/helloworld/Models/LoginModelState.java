@@ -17,10 +17,14 @@ public class LoginModelState
     @SerializedName("usuario.password")
     private List<String> password;
 
-    public LoginModelState(List<String> login, List<String> password)
+    @SerializedName("usuario.dni")
+    private List<String> dni;
+
+    public LoginModelState(List<String> login, List<String> password, List<String> dni)
     {
         this.setLogin(login);
         this.setPassword(password);
+        this.setDni(dni);
     }
 
     public List<String> getLogin() {
@@ -37,5 +41,13 @@ public class LoginModelState
 
     public void setPassword(List<String> password) {
         this.password = password;
+    }
+
+    public void setDni(List<String> dni) {
+        this.dni = dni;
+    }
+
+    public List<String> getDni() {
+        return dni == null ? new ArrayList<String>() : dni;
     }
 }

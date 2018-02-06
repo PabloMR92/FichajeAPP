@@ -22,7 +22,7 @@ public class LoginErrorRequest
 
     public String getMessage()
     {
-        return TextUtils.join(", " , modelState.getLogin()) + "\n" + TextUtils.join(", " , modelState.getPassword());
+        return  TextUtils.join(", " , modelState.getDni()) + "\n" + TextUtils.join(", " , modelState.getLogin()) + "\n" + TextUtils.join(", " , modelState.getPassword()) ;
     }
 
     public void setMessage(String message)

@@ -1,10 +1,12 @@
 package com.example.tinyterm1.helloworld.Activities;
 
+import com.evernote.android.job.JobManager;
 import com.example.tinyterm1.helloworld.ApiCall.LoginApiCall;
 import com.example.tinyterm1.helloworld.ApiCall.LoginErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.LoginSuccessInterface;
 import com.example.tinyterm1.helloworld.ApiCall.UUIDApiCall;
 import com.example.tinyterm1.helloworld.ApiCall.UUIDSuccessInterface;
+import com.example.tinyterm1.helloworld.Job.FichajeJobCreator;
 import com.example.tinyterm1.helloworld.Models.LoginErrorRequest;
 import com.example.tinyterm1.helloworld.Models.UserLogin;
 import com.microsoft.appcenter.AppCenter;
@@ -37,6 +39,7 @@ public class SplashAcivity extends AppCompatActivity{
         AppCenter.start(getApplication(), "9ee99dd5-1ab0-4469-b41d-1251c0d94de6",
                 Analytics.class, Crashes.class);
         super.onCreate(savedInstanceState);
+        JobManager.create(getApplicationContext()).addJobCreator(new FichajeJobCreator());
         setContentView(R.layout.activity_splash_acivity);
         if (UUIDKeyValueDB.getUUID(this) != null) {
             UUIDApiCall uuidApi = new UUIDApiCall();

@@ -25,8 +25,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.evernote.android.job.JobManager;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
+import com.example.tinyterm1.helloworld.Job.FichajeJob;
+import com.example.tinyterm1.helloworld.Job.FichajeJobCreator;
 import com.example.tinyterm1.helloworld.R;
 import com.example.tinyterm1.helloworld.Receiver.GeoLocationAlarmReceiver;
 import com.example.tinyterm1.helloworld.Services.FichadoPost;
@@ -67,7 +70,6 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
     Button FichadoManualButton;
     PendingIntent pendingIntent;
     private Context ctx;
-    private boolean esNuevo;
     private static final String TAG = "PrincipalActivity";
     private GoogleApiClient googleApiClient;
     final static int REQUEST_LOCATION = 199;
@@ -79,7 +81,6 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
         setContentView(R.layout.activity_principal);
         ButterKnife.bind(this);
         ctx = this;
-        esNuevo = true;
         FichadoManualButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,10 +100,12 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
                 });
             }
         });
-        startService();
-        registerReceiver(broadcastReceiverFichadaExitosa, new IntentFilter("UPDATE_FECHA"));
-        registerReceiver(broadcastReceiverFichadaFallida, new IntentFilter("UPDATE_FECHA_ERROR"));
         int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(this));
+        FichajeJob.scheduleJob(ultimaFichadaExitosa, proximaFichada, PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo));
+        /*startService();
+        registerReceiver(broadcastReceiverFichadaExitosa, new IntentFilter("UPDATE_FECHA"));
+        registerReceiver(broadcastReceiverFichadaFallida, new IntentFilter("UPDATE_FECHA_ERROR"));*/
+
         Calendar calendar = GetStartingMoment(intervalo);
         Date date = calendar.getTime();
         proximaFichada.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
@@ -198,6 +201,17 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
         return formatoFecha.format(cal.getTime());
     }
 
+    private Calendar GetStartingMoment(int intervalo){
+        Calendar calendar = Calendar.getInstance();
+        int minutoActual = calendar.get(Calendar.MINUTE);
+        if (minutoActual % intervalo == 0)
+            minutoActual += 1;
+        int minutoAIniciar = (int) (Math.ceil((double) minutoActual / intervalo)) * intervalo;
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, minutoAIniciar);
+        return calendar;
+    }
 
     BroadcastReceiver broadcastReceiverFichadaExitosa = new BroadcastReceiver() {
         @Override
@@ -266,18 +280,6 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
                     calendar.getTimeInMillis(),
                     pendingIntent);
         }
-    }
-
-    private Calendar GetStartingMoment(int intervalo){
-        Calendar calendar = Calendar.getInstance();
-        int minutoActual = calendar.get(Calendar.MINUTE);
-        if (minutoActual % intervalo == 0)
-            minutoActual += 1;
-        int minutoAIniciar = (int) (Math.ceil((double) minutoActual / intervalo)) * intervalo;
-        calendar.set(Calendar.MILLISECOND, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, minutoAIniciar);
-        return calendar;
     }
 
     @Override

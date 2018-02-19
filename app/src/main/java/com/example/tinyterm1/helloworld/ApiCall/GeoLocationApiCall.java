@@ -61,6 +61,9 @@ public class GeoLocationApiCall {
                                  else if (response.code() == 500){
                                      geoLocationErrorInterface.MostrarMensaje("Ocurrió un error inesperado en el servidor. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
                                  }
+                                 else {
+                                     geoLocationErrorInterface.MostrarMensaje("Ocurrió un error inesperado en la aplicación. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
+                                 }
                              } catch (Exception e)
                              {
                                  Log.d("onResponse", "There is an error");

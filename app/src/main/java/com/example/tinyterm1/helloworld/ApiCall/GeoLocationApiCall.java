@@ -14,10 +14,10 @@ import com.google.gson.TypeAdapter;
 
 import java.io.IOException;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by TinyTerm1 on 04/01/2017.
@@ -33,14 +33,13 @@ public class GeoLocationApiCall {
         Call<FichadoResponse> call = RestClient.getApiService(ctx).fichar(currentLocation, UUIDKeyValueDB.getUUID(ctx));
         call.enqueue(new Callback<FichadoResponse>() {
                          @Override
-                         public void onResponse(Response<FichadoResponse> response, Retrofit retrofit) {
+                         public void onResponse(Call<FichadoResponse> call, Response<FichadoResponse> response) {
 
                              try {
                                  int responseCoe = response.code();
                                  if (response.code() == 200) {
                                      geoLocationSuccessInterface.MostrarMensaje(response.body().getMensaje(), currentLocation.getTimeStamp().toString());
-                                 }
-                                 else if(response.code() == 400) {
+                                 } else if (response.code() == 400) {
                                      Gson gson = new Gson();
                                      GeoLocationErrorRequest responseLoginError = new GeoLocationErrorRequest();
                                      TypeAdapter<GeoLocationErrorRequest> adapter = gson.getAdapter(GeoLocationErrorRequest.class);
@@ -54,28 +53,26 @@ public class GeoLocationApiCall {
                                      } catch (IOException e) {
                                          e.printStackTrace();
                                      }
-                                 }
-                                 else if (response.code() == 401){
+                                 } else if (response.code() == 401) {
                                      geoLocationErrorInterface.MostrarMensaje("Acceso no autorizado. Póngase en contacto con un administrador.", currentLocation.getTimeStamp().toString());
-                                 }
-                                 else if (response.code() == 500){
+                                 } else if (response.code() == 500) {
                                      geoLocationErrorInterface.MostrarMensaje("Ocurrió un error inesperado en el servidor. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
-                                 }
-                                 else {
+                                 } else {
                                      geoLocationErrorInterface.MostrarMensaje("Ocurrió un error inesperado en la aplicación. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
                                  }
-                             } catch (Exception e)
-                             {
+                             } catch (Exception e) {
                                  Log.d("onResponse", "There is an error");
+                                 geoLocationErrorInterface.MostrarMensaje("Ocurrió un error inesperado en la aplicación. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
                                  e.printStackTrace();
                              }
                          }
+
                          @Override
-                         public void onFailure(Throwable t) {
+                         public void onFailure(Call<FichadoResponse> call, Throwable t) {
                              Log.d("onFailure", t.toString());
+                             geoLocationErrorInterface.MostrarMensaje("Ocurrió un error de conectividad. Inténtelo denuevo más tarde.", currentLocation.getTimeStamp().toString());
                          }
                      }
-
         );
     }
 }

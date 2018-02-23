@@ -39,7 +39,6 @@ public class GeoLocationService {
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, minutoAIniciar);
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String test = formatoFecha.format(calendar.getTime());
         return calendar.getTimeInMillis() - calendar2.getTimeInMillis();
     }
 

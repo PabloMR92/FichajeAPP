@@ -14,13 +14,13 @@ import com.example.tinyterm1.helloworld.UUID;
 import java.util.ArrayList;
 import java.util.Map;
 
-import retrofit.Call;
-import retrofit.http.Body;
-import retrofit.http.Field;
-import retrofit.http.GET;
-import retrofit.http.POST;
-import retrofit.http.Query;
-import retrofit.http.QueryMap;
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ApiCallREST {
 

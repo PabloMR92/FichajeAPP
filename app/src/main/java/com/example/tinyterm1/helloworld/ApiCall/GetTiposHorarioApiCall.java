@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by TinyTerm1 on 15/01/2017.
@@ -29,25 +29,23 @@ public class GetTiposHorarioApiCall {
 
         Call<ArrayList<TipoDeHorario>> call = RestClient.getApiService(ctx).ObtenerTiposHorario(params);
         call.enqueue(new Callback<ArrayList<TipoDeHorario>>() {
-                         @Override
-                         public void onResponse(Response<ArrayList<TipoDeHorario>> response, Retrofit retrofit) {
+            @Override
+            public void onResponse(Call<ArrayList<TipoDeHorario>> call, Response<ArrayList<TipoDeHorario>> response) {
+                try {
+                    if (response.code() == 200) {
+                        tipoHorarioSuccessInterface.GetTiposHorario(response.body());
+                    } else if (response.code() == 400) {
+                    }
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
 
-                             try {
-                                 if (response.code() == 200) {
-                                     tipoHorarioSuccessInterface.GetTiposHorario(response.body());
-                                 }
-                                 else if(response.code() == 400) {
-                                 }
-                             } catch (Exception e)
-                             {
-                                 Log.d("onResponse", "There is an error");
-                                 e.printStackTrace();
-                             }
-                         }
-                         @Override
-                         public void onFailure(Throwable t) {
-                             Log.d("onFailure", t.toString());
-                         }
+            @Override
+            public void onFailure(Call<ArrayList<TipoDeHorario>> call, Throwable t) {
+                Log.d("onFailure", t.toString());
+            }
                      }
 
         );

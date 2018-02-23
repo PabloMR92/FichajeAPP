@@ -11,10 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.Response;
-import retrofit.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class GetEstablecimientosApiCall {
 
@@ -24,25 +24,23 @@ public class GetEstablecimientosApiCall {
 
         Call<ArrayList<Establecimiento>> call = RestClient.getApiService(ctx).ObtenerEstablecimientos(params);
         call.enqueue(new Callback<ArrayList<Establecimiento>>() {
-                         @Override
-                         public void onResponse(Response<ArrayList<Establecimiento>> response, Retrofit retrofit) {
+            @Override
+            public void onResponse(Call<ArrayList<Establecimiento>> call, Response<ArrayList<Establecimiento>> response) {
+                try {
+                    if (response.code() == 200) {
+                        establecimientosSuccessInterface.GetEstablecimientos(response.body());
+                    } else if (response.code() == 400) {
+                    }
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
 
-                             try {
-                                 if (response.code() == 200) {
-                                     establecimientosSuccessInterface.GetEstablecimientos(response.body());
-                                 }
-                                 else if(response.code() == 400) {
-                                 }
-                             } catch (Exception e)
-                             {
-                                 Log.d("onResponse", "There is an error");
-                                 e.printStackTrace();
-                             }
-                         }
-                         @Override
-                         public void onFailure(Throwable t) {
-                             Log.d("onFailure", t.toString());
-                         }
+            @Override
+            public void onFailure(Call<ArrayList<Establecimiento>> call, Throwable t) {
+                Log.d("onFailure", t.toString());
+            }
                      }
 
         );

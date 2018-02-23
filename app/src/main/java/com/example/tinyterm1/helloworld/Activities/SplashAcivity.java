@@ -1,5 +1,6 @@
 package com.example.tinyterm1.helloworld.Activities;
 
+import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.example.tinyterm1.helloworld.ApiCall.LoginApiCall;
 import com.example.tinyterm1.helloworld.ApiCall.LoginErrorInterface;
@@ -31,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class SplashAcivity extends AppCompatActivity{
@@ -63,6 +65,7 @@ public class SplashAcivity extends AppCompatActivity{
         {
             SetStartLoginActivity();
         }
+        Fabric.with(this, new Crashlytics());
     }
 
     private void SetStartLoginActivity(){

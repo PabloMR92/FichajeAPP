@@ -35,6 +35,9 @@
             android:label="Clarity"
             android:theme="@style/AppTheme"></activity>
         <activity android:name=".Activities.ConfiguracionActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7313a8fa2ce76153ceff348a461c82673440d9cc"
+            />
     </application>
-
 </manifest>

@@ -25,6 +25,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
@@ -57,6 +58,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.fabric.sdk.android.Fabric;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.R.attr.data;
@@ -101,7 +103,7 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
             }
         });
         int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(this));
-        FichajeJob.scheduleJob(ultimaFichadaExitosa, proximaFichada, PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo));
+        FichajeJob.scheduleJob(ultimaFichadaExitosa, proximaFichada, PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo), true);
         /*startService();
         registerReceiver(broadcastReceiverFichadaExitosa, new IntentFilter("UPDATE_FECHA"));
         registerReceiver(broadcastReceiverFichadaFallida, new IntentFilter("UPDATE_FECHA_ERROR"));*/

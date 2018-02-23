@@ -12,6 +12,7 @@ import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
 import com.example.tinyterm1.helloworld.Models.GeoLocation;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -33,7 +34,7 @@ public class FichadoPost {
             geoLocationApiCall.postCurrentLocation(actualLocation, context, successInterface, errorInterface);
             gps.stopUsingGPS();
         }else{
-            Toast.makeText(context,"Habilite el GPS para el correcto funcionamiento de la aplicación.",Toast.LENGTH_LONG).show();
+            errorInterface.MostrarMensaje("Habilite el GPS para el correcto funcionamiento de la aplicación.", Calendar.getInstance().toString());
         }
 
     }

@@ -4,8 +4,11 @@ import android.content.Context;
 
 import com.example.tinyterm1.helloworld.SharedPreferences.DireccionSV;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.Retrofit;
 
 /**
  * Created by TinyTerm1 on 02/01/2017.
@@ -20,8 +23,13 @@ public class RestClient {
 
         if (apiService == null) {
             apiService = null;
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .connectTimeout(5, TimeUnit.MINUTES)
+                    .readTimeout(5,TimeUnit.MINUTES).build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(client)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 

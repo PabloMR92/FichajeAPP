@@ -18,7 +18,7 @@ public class GeoLocationPostInterval {
 
     public static String getInterval(Context context) {
         String value = getPrefs(context).getString("interval", null);
-        return "1";//value == null ? defaultValue : value;
+        return value == null ? defaultValue : value;
     }
 
     public static void setInterval(Context context, String input) {

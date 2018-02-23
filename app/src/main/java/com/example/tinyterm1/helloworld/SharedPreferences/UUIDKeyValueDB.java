@@ -20,7 +20,7 @@ public class UUIDKeyValueDB {
     }
 
     public static String getUUID(Context context) {
-        return "";//getPrefs(context).getString("value", null);
+        return getPrefs(context).getString("value", null);
     }
 
     public static void setUUID(Context context, String input) {

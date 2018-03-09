@@ -10,9 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fb7842cb-d91b-4fdd-9248-9cf30d8ac8ec" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Activities/PrincipalActivity.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Activities/PrincipalActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Job/FichajeJob.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Job/FichajeJob.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java" afterPath="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java" />
     </list>
     <ignored path="app.iws" />
@@ -86,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GPSTracker.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GPSTracker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
+            <state relative-caret-position="198">
+              <caret line="83" column="62" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="62" />
               <folding />
             </state>
           </provider>
@@ -116,7 +113,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UUIDKeyValueDB.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UUIDKeyValueDB.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/UUIDKeyValueDB.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="360">
@@ -2106,10 +2103,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/ApiCall/GetDomainsApiCall.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/FichadoPost.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Activities/PrincipalActivity.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Job/FichajeJob.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/GeoLocationPostInterval.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/UUIDKeyValueDB.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java" />
       </list>
     </option>
   </component>
@@ -3005,14 +3002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="72" column="51" selection-start-line="72" selection-start-column="51" selection-end-line="72" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-26/java/lang/String.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -3040,6 +3029,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/UUIDKeyValueDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/GeoLocationPostInterval.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -3048,10 +3045,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/SharedPreferences/UUIDKeyValueDB.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/example/tinyterm1/helloworld/Services/GPSTracker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state relative-caret-position="198">
+          <caret line="83" column="62" selection-start-line="83" selection-start-column="62" selection-end-line="83" selection-end-column="62" />
           <folding />
         </state>
       </provider>

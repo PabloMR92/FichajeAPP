@@ -103,7 +103,7 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
             }
         });
         int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(this));
-        FichajeJob.scheduleJob(ultimaFichadaExitosa, proximaFichada, PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo), true);
+        FichajeJob.scheduleJob(PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo), true);
         /*startService();
         registerReceiver(broadcastReceiverFichadaExitosa, new IntentFilter("UPDATE_FECHA"));
         registerReceiver(broadcastReceiverFichadaFallida, new IntentFilter("UPDATE_FECHA_ERROR"));*/
@@ -282,6 +282,18 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
                     calendar.getTimeInMillis(),
                     pendingIntent);
         }
+    }
+
+    public void setIltimaFichadaExitosa(String txt){
+        this.ultimaFichadaExitosa.setText(txt);
+    }
+
+    public void setProximaFichada(String txt){
+        this.proximaFichada.setText(txt);
+    }
+
+    public void Toast(String txt){
+        Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
     }
 
     @Override

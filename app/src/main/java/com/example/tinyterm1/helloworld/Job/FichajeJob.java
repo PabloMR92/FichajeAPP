@@ -1,5 +1,6 @@
 package com.example.tinyterm1.helloworld.Job;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
@@ -30,9 +31,7 @@ public class FichajeJob extends Job {
 
     public static final String TAG = "job_fichaje_tag";
     private static List<Integer> listId = new ArrayList<Integer>();
-    private static TextView _txtViewUltimaFichada;
-    private static TextView _txtViewProximaFichada;
-    private static Context context;
+    private static PrincipalActivity context;
 
     @Override
     @NonNull
@@ -42,35 +41,32 @@ public class FichajeJob extends Job {
         fichadoPost.Post(context, new GeoLocationSuccessInterface() {
             @Override
             public void MostrarMensaje(String mensaje, String hora) {
-                _txtViewUltimaFichada.setText(hora);
+                SetUltimaFichada(hora);
                 GeoLocationPostLastSuccess.setLastSuccess(context, hora);
-                postToastMessage(mensaje);
-                scheduleJob(hora);
+                Toast(mensaje);
             }
         }, new GeoLocationErrorInterface() {
             @Override
             public void MostrarMensaje(String mensaje, String hora) {
-                postToastMessage(mensaje);
-                scheduleJob(hora);
+                Toast(mensaje);
             }
         });
         listId.remove(Integer.valueOf(params.getId()));
+        scheduleJob();
         return Result.SUCCESS;
     }
 
-    private void scheduleJob(String hora){
+    private void scheduleJob(){
         int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(context));
         long moment = GeoLocationService.GetStartingMoment(intervalo);
         Calendar cal= Calendar.getInstance();
         SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String proximaFichada = GeoLocationService.GetProximaFichada(formatoFecha.format(cal.getTime()), intervalo);
-        _txtViewProximaFichada.setText(proximaFichada);
-        scheduleJob(_txtViewUltimaFichada, _txtViewProximaFichada, context, moment, false);
+        SetProximaFichada(proximaFichada);
+        scheduleJob(context, moment, false);
     }
 
-    public static void scheduleJob(TextView txtViewUltimaFichada, TextView txtViewProximaFichada, Context ctx, long ms, boolean updateCurrent) {
-        _txtViewUltimaFichada = txtViewUltimaFichada;
-        _txtViewProximaFichada = txtViewProximaFichada;
+    public static void scheduleJob(PrincipalActivity ctx, long ms, boolean updateCurrent) {
         context = ctx;
         Integer id =new JobRequest.Builder(FichajeJob.TAG)
                 .setExact(ms)
@@ -80,13 +76,29 @@ public class FichajeJob extends Job {
         listId.add(id);
     }
 
-    public void postToastMessage(final String message) {
-        Handler handler = new Handler(Looper.getMainLooper());
-
-        handler.post(new Runnable() {
+    private void Toast(final String txt){
+        context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                context.Toast(txt);
+            }
+        });
+    }
+
+    private void SetUltimaFichada(final String txt){
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                context.setIltimaFichadaExitosa(txt);
+            }
+        });
+    }
+
+    private void SetProximaFichada(final String txt){
+        context.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                context.setProximaFichada(txt);
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.example.tinyterm1.helloworld.Services;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -69,9 +70,7 @@ public class GPSTracker implements LocationListener {
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-            if (!isGPSEnabled && !isNetworkEnabled) {
-                Toast.makeText(mContext, "Debe activar el GPS!", Toast.LENGTH_LONG).show();
-            } else {
+            if (isGPSEnabled && isNetworkEnabled) {
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (isNetworkEnabled) {

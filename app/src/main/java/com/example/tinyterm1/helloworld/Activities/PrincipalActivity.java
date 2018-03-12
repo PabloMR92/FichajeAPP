@@ -79,44 +79,49 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_principal);
-        ButterKnife.bind(this);
-        ctx = this;
-        FichadoManualButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FichadoPost fichadoPost = new FichadoPost();
-                fichadoPost.Post(PrincipalActivity.this, new GeoLocationSuccessInterface() {
-                    @Override
-                    public void MostrarMensaje(String mensaje, String hora) {
-                        ultimaFichadaExitosa.setText(hora);
-                        GeoLocationPostLastSuccess.setLastSuccess(ctx, hora);
-                        Toast.makeText(PrincipalActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-                    }
-                }, new GeoLocationErrorInterface() {
-                    @Override
-                    public void MostrarMensaje(String mensaje, String hora) {
-                        Toast.makeText(PrincipalActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-        int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(this));
-        FichajeJob.scheduleJob(PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo), true);
+        try{
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_principal);
+            ButterKnife.bind(this);
+            ctx = this;
+            FichadoManualButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FichadoPost fichadoPost = new FichadoPost();
+                    fichadoPost.Post(PrincipalActivity.this, new GeoLocationSuccessInterface() {
+                        @Override
+                        public void MostrarMensaje(String mensaje, String hora) {
+                            ultimaFichadaExitosa.setText(hora);
+                            GeoLocationPostLastSuccess.setLastSuccess(ctx, hora);
+                            Toast.makeText(PrincipalActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                        }
+                    }, new GeoLocationErrorInterface() {
+                        @Override
+                        public void MostrarMensaje(String mensaje, String hora) {
+                            Toast.makeText(PrincipalActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+            int intervalo = Integer.parseInt(GeoLocationPostInterval.getInterval(this));
+            FichajeJob.scheduleJob(PrincipalActivity.this, GeoLocationService.GetStartingMoment(intervalo), true);
         /*startService();
         registerReceiver(broadcastReceiverFichadaExitosa, new IntentFilter("UPDATE_FECHA"));
         registerReceiver(broadcastReceiverFichadaFallida, new IntentFilter("UPDATE_FECHA_ERROR"));*/
 
-        Calendar calendar = GetStartingMoment(intervalo);
-        Date date = calendar.getTime();
-        proximaFichada.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
-        ultimaFichadaExitosa.setText(GeoLocationPostLastSuccess.getLastSuccess(ctx));
-        if(!EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION))
-            EasyPermissions.requestPermissions(this, "La aplicación requiere el gps activado para funcionar correctamente.", 1159, Manifest.permission.ACCESS_FINE_LOCATION);
-        final LocationManager manager = (LocationManager) PrincipalActivity.this.getSystemService(Context.LOCATION_SERVICE);
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(PrincipalActivity.this)) {
-            enableLoc();
+            Calendar calendar = GetStartingMoment(intervalo);
+            Date date = calendar.getTime();
+            proximaFichada.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
+            ultimaFichadaExitosa.setText(GeoLocationPostLastSuccess.getLastSuccess(ctx));
+            if(!EasyPermissions.hasPermissions(this, Manifest.permission.ACCESS_FINE_LOCATION))
+                EasyPermissions.requestPermissions(this, "La aplicación requiere el gps activado para funcionar correctamente.", 1159, Manifest.permission.ACCESS_FINE_LOCATION);
+            final LocationManager manager = (LocationManager) PrincipalActivity.this.getSystemService(Context.LOCATION_SERVICE);
+            if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(PrincipalActivity.this)) {
+                enableLoc();
+            }
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException(e);
         }
     }
 

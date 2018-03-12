@@ -41,18 +41,33 @@ public class FichajeJob extends Job {
         fichadoPost.Post(context, new GeoLocationSuccessInterface() {
             @Override
             public void MostrarMensaje(String mensaje, String hora) {
-                SetUltimaFichada(hora);
-                GeoLocationPostLastSuccess.setLastSuccess(context, hora);
-                Toast(mensaje);
+                try{
+                    SetUltimaFichada(hora);
+                    GeoLocationPostLastSuccess.setLastSuccess(context, hora);
+                    Toast(mensaje);
+                }
+                catch(Exception e){
+                    throw new IllegalArgumentException(e);
+                }
             }
         }, new GeoLocationErrorInterface() {
             @Override
             public void MostrarMensaje(String mensaje, String hora) {
-                Toast(mensaje);
+                try{
+                    Toast(mensaje);
+                }
+                catch(Exception e){
+                    throw new IllegalArgumentException(e);
+                }
             }
         });
         listId.remove(Integer.valueOf(params.getId()));
-        scheduleJob();
+        try{
+            scheduleJob();
+        }
+        catch(Exception e){
+            throw new IllegalArgumentException(e);
+        }
         return Result.SUCCESS;
     }
 

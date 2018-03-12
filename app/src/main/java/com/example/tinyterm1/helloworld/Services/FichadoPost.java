@@ -27,12 +27,16 @@ public class FichadoPost {
         GPSTracker gps = new GPSTracker(context);
 
         if(gps.canGetLocation()) {
-            actualLocation.setCoordenadaX(gps.getLatitude());
-            actualLocation.setCoordenadaY(gps.getLongitude());
-            actualLocation.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+            if(gps.getLatitude() == 0 && gps.getLongitude() == 0)
+                errorInterface.MostrarMensaje("No se pudo obtener la ubicación actual.", Calendar.getInstance().toString());
+            else {
+                actualLocation.setCoordenadaX(gps.getLatitude());
+                actualLocation.setCoordenadaY(gps.getLongitude());
+                actualLocation.setTimeStamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 
-            geoLocationApiCall.postCurrentLocation(actualLocation, context, successInterface, errorInterface);
-            gps.stopUsingGPS();
+                geoLocationApiCall.postCurrentLocation(actualLocation, context, successInterface, errorInterface);
+                gps.stopUsingGPS();
+            }
         }else{
             errorInterface.MostrarMensaje("Habilite el GPS para el correcto funcionamiento de la aplicación.", Calendar.getInstance().toString());
         }

@@ -38,34 +38,36 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class SplashAcivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCenter.start(getApplication(), "9ee99dd5-1ab0-4469-b41d-1251c0d94de6",
-                Analytics.class, Crashes.class);
-        super.onCreate(savedInstanceState);
-        JobManager.create(getApplicationContext()).addJobCreator(new FichajeJobCreator());
-        setContentView(R.layout.activity_splash_acivity);
-        if (UUIDKeyValueDB.getUUID(this) != null) {
-            UUIDApiCall uuidApi = new UUIDApiCall();
-            Map<String, String> data = new HashMap<>();
-            data.put("UUID", UUIDKeyValueDB.getUUID(this));
-            uuidApi.getUUID(data, this,
-                    new UUIDSuccessInterface() {
-                        @Override
-                        public void Existe(boolean existe) {
-                            if(existe){
-                                SetStartPrincipalActivity();
-                            }
-                            else{
-                                SetStartLoginActivity();
+        try {
+            AppCenter.start(getApplication(), "9ee99dd5-1ab0-4469-b41d-1251c0d94de6",
+                    Analytics.class, Crashes.class);
+            super.onCreate(savedInstanceState);
+            JobManager.create(getApplicationContext()).addJobCreator(new FichajeJobCreator());
+            setContentView(R.layout.activity_splash_acivity);
+            if (UUIDKeyValueDB.getUUID(this) != null) {
+                UUIDApiCall uuidApi = new UUIDApiCall();
+                Map<String, String> data = new HashMap<>();
+                data.put("UUID", UUIDKeyValueDB.getUUID(this));
+                uuidApi.getUUID(data, this,
+                        new UUIDSuccessInterface() {
+                            @Override
+                            public void Existe(boolean existe) {
+                                if (existe) {
+                                    SetStartPrincipalActivity();
+                                } else {
+                                    SetStartLoginActivity();
+                                }
                             }
                         }
-                    }
-            );
+                );
+            } else {
+                SetStartLoginActivity();
+            }
+            Fabric.with(this, new Crashlytics());
         }
-        else
-        {
-            SetStartLoginActivity();
+        catch(Exception e){
+            throw new IllegalArgumentException(e);
         }
-        Fabric.with(this, new Crashlytics());
     }
 
     private void SetStartLoginActivity(){

@@ -11,7 +11,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.IntentSender;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
+import android.os.StrictMode;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +33,7 @@ import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
+import com.example.tinyterm1.helloworld.Application.APPFichaje;
 import com.example.tinyterm1.helloworld.Job.FichajeJob;
 import com.example.tinyterm1.helloworld.Job.FichajeJobCreator;
 import com.example.tinyterm1.helloworld.R;
@@ -76,6 +81,17 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
     private GoogleApiClient googleApiClient;
     final static int REQUEST_LOCATION = 199;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        APPFichaje.activityResumed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        APPFichaje.activityPaused();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +135,7 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
             if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(PrincipalActivity.this)) {
                 enableLoc();
             }
+            requestBatteryPermission();
         }
         catch(Exception e){
             throw new IllegalArgumentException(e);
@@ -134,6 +151,19 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
         if (providers == null)
             return false;
         return providers.contains(LocationManager.GPS_PROVIDER);
+    }
+
+    private void requestBatteryPermission(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Intent intent = new Intent();
+            String packageName = getPackageName();
+            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+            if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+                intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                intent.setData(Uri.parse("package:" + packageName));
+                startActivity(intent);
+            }
+        }
     }
 
     private void enableLoc() {
@@ -289,7 +319,7 @@ public class PrincipalActivity extends AppCompatActivity implements EasyPermissi
         }
     }
 
-    public void setIltimaFichadaExitosa(String txt){
+    public void setUltimaFichadaExitosa(String txt){
         this.ultimaFichadaExitosa.setText(txt);
     }
 

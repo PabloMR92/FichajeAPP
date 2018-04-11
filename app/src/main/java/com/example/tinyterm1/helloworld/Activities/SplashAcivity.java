@@ -17,6 +17,7 @@ import com.microsoft.appcenter.crashes.Crashes;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,7 +43,6 @@ public class SplashAcivity extends AppCompatActivity{
             AppCenter.start(getApplication(), "9ee99dd5-1ab0-4469-b41d-1251c0d94de6",
                     Analytics.class, Crashes.class);
             super.onCreate(savedInstanceState);
-            JobManager.create(getApplicationContext()).addJobCreator(new FichajeJobCreator());
             setContentView(R.layout.activity_splash_acivity);
             if (UUIDKeyValueDB.getUUID(this) != null) {
                 UUIDApiCall uuidApi = new UUIDApiCall();

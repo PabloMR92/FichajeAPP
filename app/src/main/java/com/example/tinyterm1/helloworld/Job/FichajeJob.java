@@ -13,6 +13,7 @@ import com.evernote.android.job.JobRequest;
 import com.example.tinyterm1.helloworld.Activities.PrincipalActivity;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationErrorInterface;
 import com.example.tinyterm1.helloworld.ApiCall.GeoLocationSuccessInterface;
+import com.example.tinyterm1.helloworld.Application.APPFichaje;
 import com.example.tinyterm1.helloworld.Services.FichadoPost;
 import com.example.tinyterm1.helloworld.Services.GeoLocationService;
 import com.example.tinyterm1.helloworld.SharedPreferences.GeoLocationPostInterval;
@@ -44,7 +45,8 @@ public class FichajeJob extends Job {
                 try{
                     SetUltimaFichada(hora);
                     GeoLocationPostLastSuccess.setLastSuccess(context, hora);
-                    Toast(mensaje);
+                    if(APPFichaje.isActivityVisible())
+                        Toast(mensaje);
                 }
                 catch(Exception e){
                     throw new IllegalArgumentException(e);
@@ -54,7 +56,8 @@ public class FichajeJob extends Job {
             @Override
             public void MostrarMensaje(String mensaje, String hora) {
                 try{
-                    Toast(mensaje);
+                    if(APPFichaje.isActivityVisible())
+                        Toast(mensaje);
                 }
                 catch(Exception e){
                     throw new IllegalArgumentException(e);
@@ -104,7 +107,7 @@ public class FichajeJob extends Job {
         context.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                context.setIltimaFichadaExitosa(txt);
+                context.setUltimaFichadaExitosa(txt);
             }
         });
     }

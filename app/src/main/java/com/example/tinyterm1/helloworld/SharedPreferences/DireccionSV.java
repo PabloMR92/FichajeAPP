@@ -18,7 +18,7 @@ public class DireccionSV {
     public static String getDireccion(Context context) {
         String dir = getPrefs(context).getString("direccion", null);
         if(dir == null)
-            dir = "http://190.210.39.161/WebApiFichaje/";
+            dir = "https://app01.clarity.com.ar/webapiFichaje/";
         return dir;
     }
 

@@ -1,41 +1,20 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItem</item>
-        <item name="android:spinnerDropDownItemStyle">@style/SpinnerItem.DropDownItem</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
-    <style name="AppThemeSinBarra" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+    <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
-    <style name="SpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
-        <item name="android:textColor">#00FF00</item>
+    <style name="button" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/colorBlue</item>
     </style>
-
-    <style name="SpinnerItem.DropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
-        <item name="android:textColor">#96989A</item>
-    </style>
-
-    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert" >
-        <!--buttons color-->
-        <item name="colorAccent">@color/white</item>
-        <!--item RadioButton or CheckBox color-->
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorPrimary">@color/white</item>
-        <item name="android:background">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/white</item>
-        <item name="android:listChoiceIndicatorMultiple">@color/white</item>
-        <item name="android:listChoiceIndicatorSingle">@color/white</item>
-    </style>
-
 </resources>

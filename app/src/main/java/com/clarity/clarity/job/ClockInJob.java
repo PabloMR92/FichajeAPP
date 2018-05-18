@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public class ClockInJob extends Job {
     public static final String TAG = "ClockInJob_TAG";
-    private static final int INTERVAL_IN_MILLIS = 1000 * 60;
+    private static final int INTERVAL_IN_MILLIS = 1000 * 60 * 15;
     private static MainPresenter Presenter;
 
     @Override

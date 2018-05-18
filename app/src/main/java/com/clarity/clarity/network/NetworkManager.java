@@ -25,7 +25,7 @@ public class NetworkManager {
 
     public NetworkManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.17:3000/")
+                .baseUrl("https://app01.clarity.com.ar/webapiFichaje/")
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();

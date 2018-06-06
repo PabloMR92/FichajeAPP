@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 public class ClockInJob extends Job {
     public static final String TAG = "ClockInJob_TAG";
-    private static final int INTERVAL_IN_MILLIS = 1000 * 60 * 10;
     private static MainPresenter Presenter;
 
     @Override
@@ -36,7 +35,7 @@ public class ClockInJob extends Job {
 
     private static int rescheduleJob(){
         return new JobRequest.Builder(ClockInJob.TAG)
-                .setExecutionWindow(TimeUnit.MINUTES.toMillis(5), TimeUnit.MINUTES.toMillis(10))
+                .setExecutionWindow(TimeUnit.MINUTES.toMillis(20), TimeUnit.MINUTES.toMillis(30))
                 .setBackoffCriteria(TimeUnit.MINUTES.toMillis(2), JobRequest.BackoffPolicy.EXPONENTIAL)
                 .setRequirementsEnforced(true)
                 .setUpdateCurrent(true)

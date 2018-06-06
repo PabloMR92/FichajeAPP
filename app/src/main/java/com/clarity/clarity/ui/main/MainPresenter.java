@@ -13,6 +13,7 @@ import com.orhanobut.hawk.Hawk;
 import org.joda.time.DateTime;
 import org.joda.time.Minutes;
 import org.joda.time.Seconds;
+import org.joda.time.format.DateTimeFormat;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
@@ -55,13 +56,27 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                         .timeout(15, TimeUnit.SECONDS)
                         .flatMap(location -> getmNetworkManager()
                                 .clockIn(new Geolocation(location.getLatitude(), location.getLongitude(), requestTime.toString()))
-                                .retry((attempts, error) -> attempts <= 3 && error instanceof SocketTimeoutException)
+                                .retryWhen(attempt -> attempt
+                                        .zipWith(Observable.range(1, 4), (error, repeatAttempt) ->
+                                                new RetryObj(error, repeatAttempt))
+                                        .flatMap(obj -> {
+                                            if (obj.getRetries() <= 3 && obj.getError() instanceof SocketTimeoutException)
+                                                return Observable.timer(obj.getRetries() * 2, TimeUnit.SECONDS);
+                                            return Observable.error(obj.getError());
+                                        }))
                                 .observeOn(getSchedulerProvider().ui())
                                 .subscribeOn(getSchedulerProvider().io()))
                         .subscribe((result) -> {
-                            Timber.d("FICHADO: Fichado exitoso.");
-                            getView().setLastSuccesfulClockIn(requestTime);
-                            Hawk.put(StorageKeys.LastSuccesfulClockIn, requestTime);
+                            if (result.code() == 200) {
+                                Timber.d("FICHADO: Fichado exitoso.");
+                                getView().setLastSuccesfulClockIn(requestTime);
+                                Hawk.put(StorageKeys.LastSuccesfulClockIn, DateTimeFormat.forPattern("HH:mm:ss dd-MM-yyyy").print(requestTime));
+                            }
+                            else if(result.code() == 400){
+                                ResponseBody responseBody = result.errorBody();
+                                Timber.d("FICHADO-VALIDACION: No se encontró establecimiento cercano.");
+                                getView().showErrorMessage(getmNetworkManager().getErrorMessage(responseBody));
+                            }
                         }, e -> {
                             if (e instanceof HttpException) {
                                 ResponseBody responseBody = ((HttpException) e).response().errorBody();
@@ -70,8 +85,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                                     getView().showErrorMessage(getmNetworkManager().getErrorMessage(responseBody));
                                 }
                             } else if (e instanceof TimeoutException) {
-                                DateTime test = new DateTime();
-                                String test2 = Seconds.secondsBetween(requestTime, test).toString();
                                 Timber.d("FICHADO-ERROR: No se pudo obtener ubicación. " + requestTime.toString());
                             } else {
                                 Timber.d("FICHADO-ERROR: No se pudo comunicar con el servidor.");

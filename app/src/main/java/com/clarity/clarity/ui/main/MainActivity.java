@@ -77,21 +77,20 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         }
         btn_manualClockIn.setOnClickListener((View v) -> mPresenter.clockIn());
         if(Hawk.contains(StorageKeys.LastSuccesfulClockIn)){
-            DateTime last = Hawk.get(StorageKeys.LastSuccesfulClockIn);
-            txt_lastSuccesfulClockIn.setText(getDateFormat().print(last));
+            txt_lastSuccesfulClockIn.setText(Hawk.get(StorageKeys.LastSuccesfulClockIn));
         }
 
         mPresenter.scheduleClockInJob();
-    }
-
-    public DateTimeFormatter getDateFormat(){
-        return DateTimeFormat.forPattern("HH:mm:ss dd-MM-yyyy");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mPresenter.detach();
+    }
+
+    public DateTimeFormatter getDateFormat(){
+        return DateTimeFormat.forPattern("HH:mm:ss dd-MM-yyyy");
     }
 
     @Override

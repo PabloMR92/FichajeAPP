@@ -1,7 +1,9 @@
 package com.clarity.clarity.ui.splash;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.clarity.clarity.R;
 import com.clarity.clarity.ui.login.LoginActivity;
@@ -30,7 +32,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mPresenter.attach(this);
-        // Hawk.put(StorageKeys.Token, "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIzIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbW9iaWxlcGhvbmUiOiJhYjlkMDk2Mi1hN2UwLTQ4ZDctYmI0NC0xY2MxM2EwNTZmYTkiLCJuYmYiOjE1MjQ3NDcxNDMsImV4cCI6MTUyNDc1MDc0MywiaWF0IjoxNTI0NzQ3MTQzfQ.SSyQzRFd5hL0wtKQhQaaeqbHGDJT1inUABYE6csOJP5Q6TQAkDcSJtQqEkZ4jnmGeMHJQGrSTmXHDwLiIAL4au6iO5mgUfoFtXbtjhAqH4slYqGvEmfO2JF6bd_3I1jYVIp4tD1_3xI-COuqP3iZukBYI-AqBWrBAglCJ7cDMHa4KlfieiHlQjsU_dXsNBdd0zkpasGgQ2Hn_16mskAqqctw0uXJ9DUa-Zjj_G6ex0sHVFJd0B6HH2N9Y-4P4iSFM_5KSYmXWh7831LkOgJfSaPcv6PdXzFTHTFaz7tp5TAgN3DgXHMhIAAouWvenIqcD9BQrBD4eVw5OE0qB2zXWg");
+        //Hawk.put(StorageKeys.Token, "eyJhbGciOiJSUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1NzIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9tb2JpbGVwaG9uZSI6IjJiNTI3YWI0LWQ3ZWEtNDM3ZC04OGQwLTk2NjA0NzU3MTRmMCIsIm5iZiI6MTUyODEyMzY0MiwiZXhwIjoxNTI4MTI3MjQyLCJpYXQiOjE1MjgxMjM2NDJ9.P2IV4-D1B14rGeQwxp9qqSLu1cug_JyUlkjmLHvMcwUBesNZIvlpw-FteCX7Jr2AtHml4VP6Cd6nCSGVHmd6ogj7kbyjsfzrg86NnPnbp0tqluDo3_0sF2iE8f4DL6shEh7z3I6bnm3mDpKkEXsXUogQRFskx0GpIywtZxqhigS6X15x8adqp8ROOiVx_eqRXX3HrC9Wl4ExWUc0KLfxhCDUDO5dSsyLQd0g68b2iucTR34OziW35JkCU4ai9QxXiXmSZPzfb7WuBmruviGmcVWhVESgI1XrRbWIwsYU1d0_usRUTuXvhjarwo7IhPGxn3mzH6h79D6GFhNbRGOjBw");
         // Hawk.delete(StorageKeys.Token);
         mPresenter.waitSplash();
     }
@@ -47,6 +49,14 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         Intent iLogin = new Intent(this, LoginActivity.class);
         iLogin.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         this.startActivity(iLogin);
+    }
+
+    @Override
+    public void closeApp() {
+        Toast.makeText(this, "No se pudo conectar con el servidor. Inténtelo denuevo más tarde.", Toast.LENGTH_LONG).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            this.finishAffinity();
+        }
     }
 
     @Override

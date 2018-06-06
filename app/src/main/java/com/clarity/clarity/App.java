@@ -13,6 +13,7 @@ import com.clarity.clarity.logger.FileLoggingTree;
 import com.crashlytics.android.Crashlytics;
 import com.evernote.android.job.JobManager;
 import com.orhanobut.hawk.Hawk;
+import com.orhanobut.hawk.HawkBuilder;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 

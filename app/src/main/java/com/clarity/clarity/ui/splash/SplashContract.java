@@ -8,6 +8,7 @@ public interface SplashContract {
     interface View extends MVPView {
         void goToLogin();
         void goToMain();
+        void closeApp();
     }
 
     interface Presenter extends MVPPresenter<View> {

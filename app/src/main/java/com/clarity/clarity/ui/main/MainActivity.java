@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clarity.clarity.BuildConfig;
 import com.clarity.clarity.R;
 import com.clarity.clarity.ui.base.BaseActivity;
 import com.clarity.clarity.utils.StorageKeys;
@@ -79,8 +80,9 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         if(Hawk.contains(StorageKeys.LastSuccesfulClockIn)){
             txt_lastSuccesfulClockIn.setText(Hawk.get(StorageKeys.LastSuccesfulClockIn));
         }
-
-        mPresenter.scheduleClockInJob();
+        if (BuildConfig.AUTOMATIC_CLOCK_IN_ENABLED) {
+            mPresenter.scheduleClockInJob();
+        }
     }
 
     @Override
@@ -108,7 +110,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && BuildConfig.AUTOMATIC_CLOCK_IN_ENABLED) {
             mPresenter.scheduleClockInJob();
         }
     }

@@ -20,23 +20,13 @@ public class ClockInJob extends Job {
     @NonNull
     protected Result onRunJob(Params params) {
         Presenter.clockIn();
-        rescheduleJob();
         return Result.SUCCESS;
     }
 
     public static int scheduleJob(MainPresenter presenter) {
         Presenter = presenter;
         return new JobRequest.Builder(ClockInJob.TAG)
-                .startNow()
-                .setUpdateCurrent(true)
-                .build()
-                .schedule();
-    }
-
-    private static int rescheduleJob(){
-        return new JobRequest.Builder(ClockInJob.TAG)
-                .setExecutionWindow(TimeUnit.MINUTES.toMillis(20), TimeUnit.MINUTES.toMillis(30))
-                .setBackoffCriteria(TimeUnit.MINUTES.toMillis(2), JobRequest.BackoffPolicy.EXPONENTIAL)
+                .setPeriodic(TimeUnit.MINUTES.toMillis(20))
                 .setRequirementsEnforced(true)
                 .setUpdateCurrent(true)
                 .build()

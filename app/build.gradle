@@ -34,6 +34,16 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+    flavorDimensions "version"
+    productFlavors {
+        cliente1 {
+            dimension "version"
+            applicationIdSuffix ".cliente1"
+            versionNameSuffix "-cliente1"
+            buildConfigField "String", "SERVICE_URL", "\"https://app01.clarity.com.ar/webapiFichaje/\""
+            buildConfigField "Boolean", "AUTOMATIC_CLOCK_IN_ENABLED", "true"
+        }
+    }
 }
 
 dependencies {

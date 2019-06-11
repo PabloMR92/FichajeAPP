@@ -2,6 +2,8 @@ package com.clarity.clarity.network;
 
 import android.text.TextUtils;
 
+import com.clarity.clarity.BuildConfig;
+import com.clarity.clarity.R;
 import com.clarity.clarity.model.Geolocation;
 import com.clarity.clarity.model.JWT;
 import com.clarity.clarity.model.TokenInfo;
@@ -26,7 +28,7 @@ public class NetworkManager {
     public NetworkManager() {
         Retrofit retrofit = new Retrofit.Builder()
                 //.baseUrl("http://192.168.1.37:3000/") // TEST
-                .baseUrl("https://app01.clarity.com.ar/webapiFichaje/") // PRODUCCION
+                .baseUrl(BuildConfig.SERVICE_URL) // PRODUCCION
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();

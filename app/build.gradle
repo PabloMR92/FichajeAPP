@@ -41,7 +41,7 @@ android {
             applicationIdSuffix ".cliente1"
             versionNameSuffix "-cliente1"
             buildConfigField "String", "SERVICE_URL", "\"https://app01.clarity.com.ar/webapiFichaje/\""
-            buildConfigField "Boolean", "AUTOMATIC_CLOCK_IN_ENABLED", "true"
+            buildConfigField "Boolean", "AUTOMATIC_CLOCK_IN_ENABLED", "false"
         }
     }
 }

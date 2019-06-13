@@ -28,8 +28,8 @@ public class NetworkManager {
 
     public NetworkManager() {
         Retrofit retrofit = new Retrofit.Builder()
-                //.baseUrl("http://192.168.1.37:3000/") // TEST
-                .baseUrl(BuildConfig.SERVICE_URL) // PRODUCCION
+                .baseUrl("http://192.168.0.9:3000/") // TEST
+                //.baseUrl(BuildConfig.SERVICE_URL) // PRODUCCION
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().create()))
                 .build();

@@ -111,9 +111,11 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                         .observeOn(getSchedulerProvider().ui())
                         .subscribeOn(getSchedulerProvider().io())
                         .subscribe(configuration -> {
+                            getView().showErrorMessage("Config endpoint working");
                             Hawk.put(StorageKeys.Configuration,configuration);
                             scheduleClockInJob(configuration);
                         }, e -> {
+                            getView().showErrorMessage("Config endpoint NOT working");
                             Configuration config = Hawk.get(StorageKeys.Configuration);
                             if(config != null) {
                                 scheduleClockInJob(config);

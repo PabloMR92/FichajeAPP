@@ -1,5 +1,6 @@
 package com.clarity.clarity.ui.login;
 
+import com.clarity.clarity.model.JWT;
 import com.clarity.clarity.model.UserLogin;
 import com.clarity.clarity.network.NetworkManager;
 import com.clarity.clarity.rx.SchedulerProvider;
@@ -52,5 +53,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                                 getView().showErrorMessage("LOGIN-ERROR: Problemas de conexión.");
                             }
                         }));
+    }
+
+    private void SaveUserToken(JWT token) {
+        Timber.d("LOGIN: Exitoso.");
+        Hawk.put(StorageKeys.Token, token.getToken());
     }
 }

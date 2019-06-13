@@ -7,4 +7,5 @@ public class StorageKeys {
 
     public static String Token = "Token";
     public static String LastSuccesfulClockIn = "LastSuccesfulClockIn";
+    public static String Configuration = "Configuration";
 }

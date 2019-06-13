@@ -1,6 +1,8 @@
 package com.clarity.clarity.ui.main;
 
+import com.clarity.clarity.BuildConfig;
 import com.clarity.clarity.job.ClockInJob;
+import com.clarity.clarity.model.Configuration;
 import com.clarity.clarity.model.Geolocation;
 import com.clarity.clarity.model.UserLogin;
 import com.clarity.clarity.network.NetworkManager;
@@ -19,9 +21,11 @@ import org.parceler.Parcel;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+import java.security.cert.PKIXRevocationChecker;
 import java.util.AbstractMap;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -94,8 +98,34 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
     @Override
     public void scheduleClockInJob() {
-        ClockInJob.scheduleJob(this);
+        getCompositeDisposable()
+                .add(getmNetworkManager().getConfiguration()
+                        .retryWhen(attempt -> attempt
+                                .zipWith(Observable.range(1, 5), (error, repeatAttempt) ->
+                                        new RetryObj(error, repeatAttempt))
+                                .flatMap(obj -> {
+                                    if (obj.getRetries() <= 4 && obj.getError() instanceof SocketTimeoutException)
+                                        return Observable.timer(obj.getRetries() * 2, TimeUnit.SECONDS);
+                                    return Observable.error(obj.getError());
+                                }))
+                        .observeOn(getSchedulerProvider().ui())
+                        .subscribeOn(getSchedulerProvider().io())
+                        .subscribe(configuration -> {
+                            Hawk.put(StorageKeys.Configuration,configuration);
+                            scheduleClockInJob(configuration);
+                        }, e -> {
+                            Configuration config = Hawk.get(StorageKeys.Configuration);
+                            if(config != null) {
+                                scheduleClockInJob(config);
+                            }
+                            else
+                                scheduleClockInJob(new Configuration(BuildConfig.AUTOMATIC_CLOCK_IN_INTERVAL));
+                        }));
     }
 
-
+    private void scheduleClockInJob(Configuration configuration){
+        if (configuration.getClockInInterval() != 0) {
+            ClockInJob.scheduleJob(this, configuration.getClockInInterval());
+        }
+    }
 }

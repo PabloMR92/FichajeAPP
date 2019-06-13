@@ -23,10 +23,10 @@ public class ClockInJob extends Job {
         return Result.SUCCESS;
     }
 
-    public static int scheduleJob(MainPresenter presenter) {
+    public static int scheduleJob(MainPresenter presenter, int clockInInterval) {
         Presenter = presenter;
         return new JobRequest.Builder(ClockInJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(20))
+                .setPeriodic(TimeUnit.MINUTES.toMillis(clockInInterval))
                 .setRequirementsEnforced(true)
                 .setUpdateCurrent(true)
                 .build()

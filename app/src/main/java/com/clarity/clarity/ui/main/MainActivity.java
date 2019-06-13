@@ -80,9 +80,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         if(Hawk.contains(StorageKeys.LastSuccesfulClockIn)){
             txt_lastSuccesfulClockIn.setText(Hawk.get(StorageKeys.LastSuccesfulClockIn));
         }
-        if (BuildConfig.AUTOMATIC_CLOCK_IN_ENABLED) {
-            mPresenter.scheduleClockInJob();
-        }
+
+        mPresenter.scheduleClockInJob();
     }
 
     @Override
@@ -110,7 +109,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && BuildConfig.AUTOMATIC_CLOCK_IN_ENABLED) {
+        if (requestCode == LOCATION_PERMISSION_ID && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             mPresenter.scheduleClockInJob();
         }
     }

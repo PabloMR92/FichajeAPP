@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.clarity.clarity.BuildConfig;
 import com.clarity.clarity.R;
+import com.clarity.clarity.model.Configuration;
 import com.clarity.clarity.model.Geolocation;
 import com.clarity.clarity.model.JWT;
 import com.clarity.clarity.model.TokenInfo;
@@ -42,6 +43,10 @@ public class NetworkManager {
 
     public Observable<TokenInfo> validateToken() {
         return this.mService.validateToken(getAuthorizationHeader());
+    }
+
+    public Observable<Configuration> getConfiguration() {
+        return this.mService.getConfiguration(getAuthorizationHeader());
     }
 
     public Observable<Response<Void>> clockIn(Geolocation currentLocation) {

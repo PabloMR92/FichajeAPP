@@ -75,6 +75,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                                 Timber.d("FICHADO: Fichado exitoso.");
                                 getView().setLastSuccesfulClockIn(requestTime);
                                 Hawk.put(StorageKeys.LastSuccesfulClockIn, DateTimeFormat.forPattern("HH:mm:ss dd-MM-yyyy").print(requestTime));
+                                getView().showErrorMessage("Fichado exitoso.");
                             }
                             else if(result.code() == 400){
                                 ResponseBody responseBody = result.errorBody();
@@ -87,11 +88,15 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                                 if (((HttpException) e).code() == 400) {
                                     Timber.d("FICHADO-VALIDACION: No se encontró establecimiento cercano.");
                                     getView().showErrorMessage(getmNetworkManager().getErrorMessage(responseBody));
+                                } else {
+                                    getView().showErrorMessage("Ocurrio un error al intentar realizar la operacion. Comuniquese con un administrador.");
                                 }
                             } else if (e instanceof TimeoutException) {
                                 Timber.d("FICHADO-ERROR: No se pudo obtener ubicación. " + requestTime.toString());
+                                getView().showErrorMessage("No se pudo comunicar con el servidor. Intentelo de nuevo mas tarde.");
                             } else {
                                 Timber.d("FICHADO-ERROR: No se pudo comunicar con el servidor.");
+                                getView().showErrorMessage("No se pudo comunicar con el servidor. Intentelo de nuevo mas tarde.");
                             }
                         }));
     }
